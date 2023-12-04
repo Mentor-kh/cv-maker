@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  title: DeArchNet rest API
+  description: Specification of REST API for DeArchNet Project
+  version: 0.1.2
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /tokens:
+    post:
+      summary: Create a new token with a random name.
+      operationId: rest.auth.login.post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenBody'
+      responses:
+        '200':
+          description: Token object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Prolong token by id is exists.
+      security:
+        - bearerAuth: []
+      operationId: rest.auth.login.put
+      responses:
+        '200':
+          description: Token object
+          content:
+            application/json:
+              schema:
+                type: object
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      summary: Remove token by id
+      security:
+        - bearerAuth: []
+      operationId: rest.auth.logout
+      responses:
+        '200':
+          description: Token deleted
+          content:
+            application/json:
+              schema:
+                type: object
+  /users/{userId}:
+    get:
+      summary: Get a user by phone number
+      parameters:
+        - in: path
+          name: phone
+          schema:
+            type: integer
+          required: true
+          description: Numeric phone number of the user to get
+      responses:
+        '200':
+          description: A JSON array of users
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/UserBasic
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+  /users:
+    post:
+      summary: Registers new user in the system
+      operationId: rest.auth.signup.post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBasic'
+      responses:
+        '200':
+          description: Successfully new user registered
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    get:
+      summary: Returns a list of users.
+      security:
+        - bearerAuth: []
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':
+          description: A JSON array of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserBasic'
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    TokenBody:
+      type: object
+      required:
+        - id
+        - phone
+      properties:
+        phone:
+          type: string
+        id:
+          type: string
+    Token:
+      type: object
+      required:
+        - phone
+        - id
+        - expires
+      properties:
+        phone:
+          type: string
+        id:
+          type: string
+        expires:
+          type: string
+    UserBasic:
+      type: object
+      required:
+        - phone
+        - firstName
+        - lastName
+        - password
+      properties:
+        phone:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+  responses:
+    PermissionError:
+      description: Security error
+    404NotFound:
+      description: The specified resource was not found.
+securitySchemes:
+  bearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT

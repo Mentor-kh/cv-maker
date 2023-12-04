@@ -1,0 +1,23 @@
+<div class="form-container">
+  <h1>Log in:</h1>
+  <form class="form" [formGroup]="form" (submit)="submitForm($event)">
+    <mat-form-field class="full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone">
+      <mat-error align="start" *ngIf="checkErrors('phone')">This field is required and must have 10 numbers!</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Password</mat-label>
+      <input [type]="isHintHidden ? 'password' : 'text'" matInput formControlName="password">
+      <button mat-icon-button matSuffix (click)="isHintHidden = !isHintHidden" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="isHintHidden">
+        <mat-icon>{{isHintHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="checkErrors('password')">This field is required!</mat-error>
+    </mat-form-field>
+    <p *ngIf="formError">
+        <mat-error>{{ formError }}</mat-error>
+    </p>
+    <button data-test-id="button-login" mat-raised-button>Login</button>
+  </form>
+  <p>Don't have account? <a [routerLink]="'/signup'">Create new account</a></p>
+</div>

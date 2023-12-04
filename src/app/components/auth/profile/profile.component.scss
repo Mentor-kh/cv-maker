@@ -1,0 +1,92 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.heading-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.form {
+    margin-bottom: 20px;
+}
+
+.form-container{
+    min-width: 150px;
+    max-width: 540px;
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+}
+  
+.additional-form-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+    margin: 0 -10px;
+
+    .drag-handle {
+        margin: 18px -60px 0 -34px;
+    }
+
+    .delete-btn {
+        position: relative;
+        top: 18px;
+    }
+
+    & > *:nth-child(1),
+    & > *:nth-child(2) {
+        order: 0;
+        flex: 1 1 auto;
+        align-self: auto;
+        padding: 0 10px;
+    }
+
+    & > *:nth-child(3) {
+        order: 0;
+        flex: 0 1 auto;
+        align-self: auto;
+    }
+}
+
+.button-holder {
+    button + button {
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .additional-form-row {
+        position: relative;
+        padding: 36px 0 0;
+        flex-direction: column;
+        margin: 0;
+
+        & > * {
+            flex: auto !important;
+            padding: 0 !important;
+            width: 100%;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0;
+            left: 36px;
+        }
+
+        .drag-handle {
+            position: absolute;
+            margin: 0;
+            top: 0;
+            left: 0;
+        }
+    }
+}

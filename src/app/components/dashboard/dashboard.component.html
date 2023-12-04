@@ -1,0 +1,24 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  @defer (when checkData) {
+    <div class="grid-list">
+      <div class="grid-block" *ngFor="let user of users">
+        <mat-card matRipple class="dashboard-card" [routerLink]="'/profile/'+user.id">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon class="avatar" aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+              <div class="truncate-text">{{ user.firstName }}
+              {{ user.lastName }}</div>
+            </mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+  }
+  @placeholder {
+    <mat-spinner></mat-spinner>
+  }
+  @error {
+    <span>{{ error }}</span>
+  }
+</div>

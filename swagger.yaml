@@ -1,0 +1,270 @@
+openapi: 3.0.1
+
+info:
+  title: DeArchNet rest API
+  description: Specification of REST API for DeArchNet Project
+  version: 0.1.2
+
+servers:
+  - url: 'http://localhost:3000'
+
+paths:
+  /tokens:
+    post:
+      summary:  Create a new token with a random name.
+      operationId: rest.auth.login.post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenBody'
+      responses:
+        200:
+          description: Token object
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Token'
+        403:
+          description: Security error
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Prolong token by id is exists.
+      security:
+        - BearerAuth: []
+      operationId: rest.auth.login.put
+      responses:
+        200:
+          description: Token object
+          content:
+            application/json:
+              schema: 
+                type: object
+        403:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      summary: Remove token by id
+      security:
+        - BearerAuth: []
+      operationId: rest.auth.logout
+      responses:
+        200:
+          description: Token deleted
+          content:
+            application/json:
+              schema: 
+                type: object
+        403:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /users/{userId}:
+    get:
+      summary: Get a user by user id
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Numeric user id of the user to get
+      responses:
+        '200':
+          description: A JSON object of the user
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/UserProfile'
+        '403':
+          description: Security error
+        '404':
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+  
+  /users:   
+    post:
+      summary: Registers new user in the system
+      operationId: rest.auth.signup.post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBasic'
+      responses:
+        200:
+          description: Successfully new user registered
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    
+    put:
+      summary: Update user in the system
+      security:
+        - BearerAuth: []
+      operationId: rest.profile.update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        200:
+          description: Successfully user updated
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+    
+    get:
+      summary: Returns a list of users.
+      security:
+        - BearerAuth: []
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        200:
+          description: A JSON array of users
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/UserBasic'
+        403:
+          description: Security error
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+
+    delete:
+      summary: Delete user in the system
+      security:
+        - BearerAuth: []
+      operationId: rest.profile.delete
+      responses:
+        204:
+          description: Successfully user deleted
+        404:
+          description: The specified resource was not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    TokenBody:
+      type: object
+      required: 
+        - id
+        - phone
+      properties:
+        phone: 
+          type: string
+        id: 
+          type: string
+    Token:
+      type: object
+      required: 
+        - userId
+        - id
+        - expires
+      properties:
+        userId: 
+          type: string
+        id: 
+          type: string
+        expires: 
+          type: string
+    UserBasic: 
+      type: object
+      required:
+        - id
+        - phone
+        - firstName
+        - lastName
+        - password
+      properties:
+        id:
+          type: string
+        phone: 
+          type: string
+        firstName: 
+          type: string
+        lastName: 
+          type: string
+        password: 
+          type: string
+    UserProfile:
+      allOf:     # Combines the UserBasic and the inline model
+        - $ref: '#/components/schemas/UserBasic'
+        - type: object
+          properties:
+            image:
+              type: string
+            email:
+              type: string
+            address:
+              type: string
+            site:
+              type: string
+            additionals:
+              type: array
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  info:
+                    type: string
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+    404NotFound:
+      description: The specified resource was not found.
+
+  securitySchemes:
+    BearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes

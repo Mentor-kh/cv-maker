@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span class="logo" [routerLink]="'/'"><mat-icon>{{ 'http' }}</mat-icon></span>
+  <div class="nav">
+    <button data-test-id="button-checks" mat-button [routerLink]="'/checks'">Checks</button>
+    <button data-test-id="button-login" *ngIf="!isAuthentificated" mat-button [routerLink]="'/login'">Login</button>
+    <button data-test-id="button-signup" *ngIf="!isAuthentificated" mat-button [routerLink]="'/signup'">Sign up</button>
+    <button data-test-id="button-profile" *ngIf="isAuthentificated" mat-button [routerLink]="'/profile'">Profile</button>
+    <button data-test-id="button-logout" *ngIf="isAuthentificated" mat-button (click)="logout()">Logout</button>
+  </div>
+</mat-toolbar>

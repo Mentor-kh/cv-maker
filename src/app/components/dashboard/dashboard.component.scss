@@ -1,0 +1,39 @@
+.grid-container {
+  margin: 20px;
+
+  .grid-list {
+    margin: 0 -10px;
+    /* grid styles */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: center;
+    
+    .grid-block {
+      margin: 0 10px 10px;
+      cursor: pointer;
+    }
+
+    .mat-mdc-card-header {
+      padding: 16px;
+    }
+
+    .mat-icon {
+      float: left;
+      margin-right: 5px;
+    }
+
+    .truncate-text {
+      display: block;
+      line-height: 26px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}

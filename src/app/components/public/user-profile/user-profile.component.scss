@@ -1,0 +1,38 @@
+.additional {
+    padding-top: 25px;
+
+    h2 {
+        display: inline-block;
+        background: white;
+        margin: 0 0 20px -9999px;
+        padding: 10px 20px 10px 9999px;
+        border-radius: 0 25px 25px 0;
+    }
+
+    .info {
+        padding-bottom: 25px;
+        font-size: 18px;
+        line-height: 24px;
+        color: white;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .additional {
+        padding: 0;
+        
+        h2 {
+            margin-bottom: 0;
+        }
+    
+        .info {
+            color: inherit;
+        }
+    }
+
+    .contacts {
+        > * {
+            padding: 0;
+        } 
+    }
+}

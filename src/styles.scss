@@ -1,0 +1,205 @@
+/* material imports */
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+$primary: mat.define-palette(mat.$indigo-palette);
+$accent: mat.define-palette(mat.$pink-palette);
+$warn: mat.define-palette(mat.$red-palette);
+
+$my-typography: mat.define-typography-config();
+
+$theme: mat.define-light-theme((
+  color: (primary: $primary, accent: $accent, warn: $warn),
+  typography: $my-typography,
+));
+
+$color-config:    mat.get-color-config($theme);
+$primary-palette: map.get($color-config, 'primary');
+$accent-palette:  map.get($color-config, 'accent');
+$warn-palette:    map.get($color-config, 'warn');
+$is-dark-theme:   map.get($color-config, 'is-dark');
+
+/* general styles */
+* {
+    box-sizing: border-box;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif)); }
+
+
+main {
+    min-height: calc(100% - 64px);
+    overflow: hidden;
+
+    .mat-mdc-form-field {
+        display: block;
+    }
+    .mat-icon {
+        vertical-align: middle;
+    }
+}
+
+.main {
+    position: relative;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(
+        to right, 
+        mat.get-color-from-palette($primary-palette, 500),
+        mat.get-color-from-palette($primary-palette, 500) 50%,
+        #fff 50%,
+        #fff 100%
+      );
+}
+
+.container {
+    padding: 0 16px;
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.heading-holder {
+    position: relative;
+    color: #fff;
+    margin: 0 -9999px;
+    padding: 60px 9999px 20px;
+    overflow: hidden;
+    background: mat.get-color-from-palette($primary-palette, 500);
+    border-bottom: 20px solid #fff;
+
+    &::before {
+        position: absolute;
+        z-index: 1;
+        content: "";
+        height: 60px;
+        width: 500px;
+        margin: 30px 0 0 -130px;
+        left: 50%;
+        top: 50%;
+        rotate: -45deg;
+        background-image:
+            linear-gradient(
+            to top, 
+            mat.get-color-from-palette($primary-palette, 500),
+            mat.get-color-from-palette($primary-palette, 500) 50%,
+            #fff 50%,
+            #fff 100%
+        );
+    }
+
+    &::after {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 50%;
+        content: "";
+        height: 1000px;
+        width: 1000px;
+        rotate: -45deg;
+        background-color: #fff;
+    }
+
+    .main & h1 {
+        margin: 0;
+    }
+}
+
+.image-holder {
+    margin: -100px auto 50px;
+    position: relative;
+    z-index: 3;
+    width: 200px;
+    height: 200px;
+    rotate: 45deg;
+    border: 4px solid #fff;
+    border-radius: 35px;
+    overflow: hidden;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: top;
+        transform: scale(1.3);
+        rotate: -45deg;
+    }
+}
+
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+
+    .column {
+        order: 1;
+        flex: 1 1 auto;
+        align-self: auto;
+        width: 50%;
+        padding: 0 20px;
+
+        & + .column {
+            order: 0;
+        }
+    }
+}
+
+.contacts {
+    address {
+        display: inline-block;
+        font-style: normal;
+        padding: 0 8px;
+        color: var(--mdc-text-button-label-text-color, inherit);
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        font-family: var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+        font-size: var(--mdc-typography-button-font-size, 14px);
+        line-height: var(--mdc-typography-button-line-height, 36px);
+        font-weight: var(--mdc-typography-button-font-weight, 500);
+        letter-spacing: var(--mdc-typography-button-letter-spacing, 0.0892857143em);
+        -webkit-text-decoration: var(--mdc-typography-button-text-decoration, none);
+        text-decoration: var(--mdc-typography-button-text-decoration, none);
+        text-transform: var(--mdc-typography-button-text-transform, none);
+    }
+    & > * {
+        margin-bottom: 10px;
+    }
+}
+
+.icon-holder {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    width: 36px;
+    height: 36px;
+    color: #fff;
+    text-align: center;
+    line-height: 36px;
+    background: mat.get-color-from-palette($primary-palette, 500);
+    border-radius: 50%;
+
+    & > * {
+        vertical-align: middle;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main {
+        background: none;
+    }
+    .image-holder {
+        margin: -115px 30px 50px auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+    }
+    .two-columns {
+        display: block;
+
+        .column {
+            padding: 0;
+            width: auto;
+        }
+    }
+}
