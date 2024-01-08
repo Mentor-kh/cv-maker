@@ -205,27 +205,27 @@ components:
           type: string
     Token:
       type: object
-      required: 
+      required:
+        - entityId
         - userId
-        - id
         - expires
       properties:
-        userId: 
+        entityId: 
           type: string
-        id: 
+        userId: 
           type: string
         expires: 
           type: string
     UserBasic: 
       type: object
       required:
-        - id
+        - entityId
         - phone
         - firstName
         - lastName
         - password
       properties:
-        id:
+        entityId:
           type: string
         phone: 
           type: string

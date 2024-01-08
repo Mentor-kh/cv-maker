@@ -9,7 +9,7 @@ export class SessionService {
   private sessionChanges$: Subject<Token> = new Subject();
   private activeSession: Token = {
     userId: '',
-    id: '',
+    entityId: '',
     expires: '',
   };
 
@@ -27,21 +27,21 @@ export class SessionService {
 
   public set session(body: Token) {
     localStorage.setItem('userId', body.userId);
-    localStorage.setItem('id', body.id);
+    localStorage.setItem('entityId', body.entityId);
     localStorage.setItem('expires', body.expires);
     this.emitSessionChanges();
   }
 
   public isSessionActive(): boolean {
     return (
-      this.activeSession.id.length > 0 &&
+      this.activeSession.entityId.length > 0 &&
       +this.activeSession.expires > Date.now()
     );
   }
 
   public removeSession(): void {
     localStorage.removeItem('userId');
-    localStorage.removeItem('id');
+    localStorage.removeItem('entityId');
     localStorage.removeItem('expires');
     this.emitSessionChanges();
   }
@@ -53,7 +53,7 @@ export class SessionService {
 
   private readSessionFromLocalStore(): void {
     this.activeSession.userId = localStorage.getItem('userId') || '';
-    this.activeSession.id = localStorage.getItem('id') || '';
+    this.activeSession.entityId = localStorage.getItem('entityId') || '';
     this.activeSession.expires = localStorage.getItem('expires') || '';
   }
 }

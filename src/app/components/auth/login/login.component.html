@@ -15,7 +15,7 @@
       <mat-error *ngIf="checkErrors('password')">This field is required!</mat-error>
     </mat-form-field>
     <p *ngIf="formError">
-        <mat-error>{{ formError }}</mat-error>
+        <mat-error>{{ formError | json }}</mat-error>
     </p>
     <button data-test-id="button-login" mat-raised-button>Login</button>
   </form>
