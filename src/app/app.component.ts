@@ -43,8 +43,8 @@ export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
     this.trackSubscription(
       this.sessionService.sessionChanges.subscribe(
         (token: Token) => {
-          console.log('sessionChanges', token, token.id, +token.expires < Date.now());
-          if (token.id) {
+          console.log('sessionChanges', token, token.entityId, +token.expires < Date.now());
+          if (token.entityId) {
             console.log('1');
             this.isAuthentificated = true;
             if (+token.expires < Date.now()) {

@@ -3,7 +3,7 @@
   @defer (when checkData) {
     <div class="grid-list">
       <div class="grid-block" *ngFor="let user of users">
-        <mat-card matRipple class="dashboard-card" [routerLink]="'/profile/'+user.id">
+        <mat-card matRipple class="dashboard-card" [routerLink]="'/profile/'+user.entityId">
           <mat-card-header>
             <mat-card-title>
               <mat-icon class="avatar" aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
