@@ -30,6 +30,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v3
+      - name: Replace environment.ts with environment.prod.ts
+        run: |
+          cp src/environments/environment.prod.ts src/environments/environment.ts
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
