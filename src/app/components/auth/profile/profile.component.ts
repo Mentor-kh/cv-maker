@@ -117,7 +117,7 @@ export class ProfileComponent extends AuthContext implements OnInit {
     this.trackSubscription(
       this.authService.updateUser(this.form.value).subscribe({
         next: (response: {}) => {
-          this.router.navigateByUrl(`${AppRoutes.profile}/${this.userData.id}`);
+          this.router.navigateByUrl(`${AppRoutes.profile}/${this.userData.entityId}`);
           this.formError = '';
         },
         error: (httpErrorResponse: HttpErrorResponse) => {

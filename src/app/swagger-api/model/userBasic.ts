@@ -11,7 +11,7 @@
  */
 
 export interface UserBasic { 
-    id: string;
+    entityId: string;
     phone: string;
     firstName: string;
     lastName: string;
