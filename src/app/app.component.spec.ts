@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { subjectsComplete } from './common/helpers';
 
 export const tokenMock: Token = {
-  id: 'qwerqtqerq',
+  entityId: 'qwerqtqerq',
   expires: '123123123',
   userId: 'userIdmock'
 }

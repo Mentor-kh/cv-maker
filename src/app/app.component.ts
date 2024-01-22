@@ -43,9 +43,7 @@ export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
     this.trackSubscription(
       this.sessionService.sessionChanges.subscribe(
         (token: Token) => {
-          console.log('sessionChanges', token, token.entityId, +token.expires < Date.now());
           if (token.entityId) {
-            console.log('1');
             this.isAuthentificated = true;
             if (+token.expires < Date.now()) {
               this.authService.prolong().subscribe({
@@ -60,7 +58,6 @@ export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
               });
             }
           } else {
-            console.log('2');
             this.isAuthentificated = false;
             this.router.navigateByUrl(AppRoutes.baseUrl); 
           }
