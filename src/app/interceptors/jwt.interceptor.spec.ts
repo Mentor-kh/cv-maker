@@ -44,9 +44,9 @@ describe('JwtInterceptor', () => {
     let userToken = localStorage.getItem('id');
     expect(userToken).toBeNull();
 
-    localStorage.setItem('id', 'fakeTokenValue');
+    localStorage.setItem('entityId', 'fakeTokenValue');
     localStorage.setItem('expires', (Date.now() + 9999).toString());
-    userToken = localStorage.getItem('id');
+    userToken = localStorage.getItem('entityId');
     expect(userToken).toBeTruthy();
 
     http.get('/test').subscribe(() => {

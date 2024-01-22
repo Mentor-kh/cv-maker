@@ -22,7 +22,7 @@ describe('SessionService', () => {
       [false, false],
     ].forEach(([isIdExists, isDateExpired]) => {
       it('Should check', () => {
-        service['activeSession'].id = isIdExists ? 'mockId': '';
+        service['activeSession'].entityId = isIdExists ? 'mockId': '';
         service['activeSession'].expires = isDateExpired ? (Date.now() - 1).toString() : (Date.now() + 1).toString();
         expect(service.isSessionActive()).toBe(isIdExists && !isDateExpired);
       });

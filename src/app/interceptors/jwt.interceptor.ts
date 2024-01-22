@@ -39,7 +39,7 @@ export class JwtInterceptor implements HttpInterceptor {
   private addTokenToHeaders(request: HttpRequest<any>): HttpRequest<any> {
     return request.clone({
       setHeaders: {
-        Authorization: `Bearer ${ this.sessionService.session.id }`,
+        Authorization: `Bearer ${ this.sessionService.session.entityId }`,
       },
     });
   }

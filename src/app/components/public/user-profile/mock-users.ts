@@ -1,7 +1,7 @@
 import { UserBasic } from "src/app/swagger-api";
 
 export const mockUserBasic: UserBasic = {
-    id: "qwerty",
+    entityId: "qwerty",
     firstName: "firstName",
     lastName: "lastName",
     phone: "1234567890",

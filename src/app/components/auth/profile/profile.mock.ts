@@ -1,7 +1,7 @@
 import { UserProfile } from "src/app/swagger-api";
 
 export const mockProfile: UserProfile = {
-    id: 'mock',
+    entityId: 'mock',
     firstName: 'First',
     lastName: 'Last',
     phone: '1234567890',

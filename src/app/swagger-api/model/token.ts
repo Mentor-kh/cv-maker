@@ -11,7 +11,7 @@
  */
 
 export interface Token { 
+    entityId: string;
     userId: string;
-    id: string;
     expires: string;
 }
