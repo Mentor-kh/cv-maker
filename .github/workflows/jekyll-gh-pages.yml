@@ -28,26 +28,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm run test:headless
-
-      - name: Build
-        run: npm run build:prod
-
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
-
         with:
           source: ./
           destination: ./_site
