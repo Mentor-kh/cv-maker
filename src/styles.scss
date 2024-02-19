@@ -30,6 +30,7 @@ body { margin: 0; font-family: var(--mdc-typography-button-font-family, var(--md
 main {
     min-height: calc(100% - 64px);
     overflow: hidden;
+    padding: 0 20px;
 
     .mat-mdc-form-field {
         display: block;
