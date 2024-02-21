@@ -67,11 +67,11 @@ describe('AppComponent', () => {
     it('Error logout', () => {
       const removeSessionSpy: jasmine.Spy = spyOn(component['sessionService'], 'removeSession').and.stub();
       const routerSpy: jasmine.Spy = spyOn(component['router'], 'navigateByUrl').and.stub();
-      spyOn(component['authService'], 'logout').and.returnValue(throwError(() => new HttpErrorResponse({error: 'mock error'})));
+      spyOn(component['authService'], 'logout').and.returnValue(throwError(() => new HttpErrorResponse({ error: 'mock error' })));
       component.logout();
       expect(removeSessionSpy).toHaveBeenCalled();
       expect(routerSpy).toHaveBeenCalled();
-      expect(routerSpy).toHaveBeenCalledWith(AppRoutes.baseUrl);
+      expect(routerSpy).toHaveBeenCalledWith(AppRoutes.baseUrl + 'error');
     });
   });
 
@@ -82,17 +82,17 @@ describe('AppComponent', () => {
       const removeSessionSpy: jasmine.Spy = spyOn(component['authService'], 'prolong').and.callThrough();
       component['sessionService'].sessionChanges.subscribe(() => {
         expect(removeSessionSpy).toHaveBeenCalled();
-        expect(component.isAuthentificated).toBeTruthy(); 
-        expect(routerSpy).not.toHaveBeenCalled();   
+        expect(component.isAuthentificated).toBeTruthy();
+        expect(routerSpy).not.toHaveBeenCalled();
       });
       component['sessionService']['sessionChanges$'].next(tokenMock);
     });
     it('Should check token error response', () => {
       const routerSpy: jasmine.Spy = spyOn(component['router'], 'navigateByUrl').and.stub();
-      const removeSessionSpy: jasmine.Spy = spyOn(component['authService'], 'prolong').and.returnValue(throwError(() => new HttpErrorResponse({error: 'mock error'})));
+      const removeSessionSpy: jasmine.Spy = spyOn(component['authService'], 'prolong').and.returnValue(throwError(() => new HttpErrorResponse({ error: 'mock error' })));
       component['sessionService'].sessionChanges.subscribe(() => {
         expect(removeSessionSpy).toHaveBeenCalled();
-        expect(component.isAuthentificated).toBeFalsy(); 
+        expect(component.isAuthentificated).toBeFalsy();
         expect(routerSpy).toHaveBeenCalled();
         expect(routerSpy).toHaveBeenCalledWith(AppRoutes.baseUrl);
       });
