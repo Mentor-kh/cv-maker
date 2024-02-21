@@ -54,8 +54,8 @@ describe('ProfileComponent', () => {
       expect(deleteAdditionalSpy).toHaveBeenCalled();
     });
     it('Should check form success submit action', () => {
-      const proceedFormSubmitSpy: jasmine.Spy = spyOn<any>(component, 'proceedFormSubmit').and.callThrough();
-      spyOn<any>(component['authService']['apiService'], 'restProfileUpdate').and.returnValue(of({}));
+      const proceedFormSubmitSpy: jasmine.Spy = spyOn(component, 'proceedFormSubmit').and.callThrough();
+      spyOn(component['authService']['apiService'], 'restProfileUpdate').and.returnValue(of({}));
       const updateUserSpy: jasmine.Spy = spyOn(component['authService'], 'updateUser').and.callThrough();
       component['userData'] = mockProfile;
       component.form.patchValue(mockProfile);
@@ -65,7 +65,7 @@ describe('ProfileComponent', () => {
       expect(component.formError).toBe('');
     });
     it('Should check form error submit action', () => {
-      const proceedFormSubmitSpy: jasmine.Spy = spyOn<any>(component, 'proceedFormSubmit').and.callThrough();
+      const proceedFormSubmitSpy: jasmine.Spy = spyOn(component, 'proceedFormSubmit').and.callThrough();
       const updateUserSpy: jasmine.Spy = spyOn(component['authService'], 'updateUser').and.returnValue(throwError(() => new HttpErrorResponse({error: 'mock error'})));
       component['userData'] = mockProfile;
       component.form.patchValue(mockProfile);
@@ -130,7 +130,7 @@ describe('ProfileComponent', () => {
           .returnValue({
               afterClosed: () => of(false)
           } as MatDialogRef<typeof component>);
-        spyOn<any>(component['authService']['apiService'], 'restProfileDelete').and.returnValue(of({}));
+        spyOn(component['authService']['apiService'], 'restProfileDelete').and.returnValue(of({}));
         const deleteAccountSpy: jasmine.Spy = spyOn(component['authService'], 'deleteAccount').and.callThrough();
         component.deleteAccount();
         expect(openSpy).toHaveBeenCalled();
@@ -150,7 +150,7 @@ describe('ProfileComponent', () => {
       it('Should check dialog ok button click', () => {
         const logoutSpy: jasmine.Spy = spyOn(component['authService'], 'logout').and.returnValue(of({}));
         const removeSessionSpy: jasmine.Spy = spyOn(component['sessionService'], 'removeSession').and.callThrough();
-        spyOn<any>(component['authService']['apiService'], 'restProfileDelete').and.returnValue(of({}));
+        spyOn(component['authService']['apiService'], 'restProfileDelete').and.returnValue(of({}));
         const deleteAccountSpy: jasmine.Spy = spyOn(component['authService'], 'deleteAccount').and.callThrough();
         component.deleteAccount();
         expect(openSpy).toHaveBeenCalled();
@@ -196,7 +196,7 @@ describe('ProfileComponent', () => {
       });
       it('#restoreAdditionalData called', () => {
         const getUserSpy: jasmine.Spy = spyOn(component['dataService'], 'getUser').and.returnValue(of(mockProfile));
-        const restoreAdditionalDataSpy: jasmine.Spy = spyOn<any>(component, 'restoreAdditionalData').and.callThrough();
+        const restoreAdditionalDataSpy: jasmine.Spy = spyOn(component, 'restoreAdditionalData').and.callThrough();
         
         component['getUserData']();
         expect(getUserSpy).toHaveBeenCalled();
@@ -204,7 +204,7 @@ describe('ProfileComponent', () => {
       });
       it('#restoreAdditionalData not called', () => {
         const getUserSpy: jasmine.Spy = spyOn(component['dataService'], 'getUser').and.returnValue(of({...mockProfile, additionals: []}));
-        const restoreAdditionalDataSpy: jasmine.Spy = spyOn<any>(component, 'restoreAdditionalData').and.callThrough();
+        const restoreAdditionalDataSpy: jasmine.Spy = spyOn(component, 'restoreAdditionalData').and.callThrough();
         
         component['getUserData']();
         expect(getUserSpy).toHaveBeenCalled();

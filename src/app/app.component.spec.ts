@@ -78,7 +78,7 @@ describe('AppComponent', () => {
   describe('#checkisAuthentificated', () => {
     it('Should check token success response', () => {
       const routerSpy: jasmine.Spy = spyOn(component['router'], 'navigateByUrl').and.stub();
-      spyOn<any>(component['authService']['apiService'], 'restAuthLoginPut').and.returnValue(of(tokenMock));
+      spyOn(component['authService']['apiService'], 'restAuthLoginPut').and.returnValue(of(tokenMock));
       const removeSessionSpy: jasmine.Spy = spyOn(component['authService'], 'prolong').and.callThrough();
       component['sessionService'].sessionChanges.subscribe(() => {
         expect(removeSessionSpy).toHaveBeenCalled();

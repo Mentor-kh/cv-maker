@@ -28,15 +28,15 @@ describe('UserProfileComponent', () => {
 
   describe('#getUsers', () => {
     it('Should check success receive data', () => {
-      spyOn<any>(component['dataService'], 'getUser').and.returnValue(of(mockUserBasic));
+      spyOn(component['dataService'], 'getUser').and.returnValue(of(mockUserBasic));
       component['getUser'](mockUserBasic.entityId);
       expect(component.isDataLoaded).toBeTruthy();
       expect(component.userData).toEqual(mockUserBasic);
     });
     it('Should check error receive data', () => {
-      spyOn<any>(component['dataService'], 'getUser').and.returnValue(throwError(() => new HttpErrorResponse({error: 'mock error'})));
+      spyOn(component['dataService'], 'getUser').and.returnValue(throwError(() => new HttpErrorResponse({ error: 'mock error' })));
       component['getUser'](mockUserBasic.entityId);
       expect(component.error).toEqual('mock error');
     });
-  }); 
+  });
 });
