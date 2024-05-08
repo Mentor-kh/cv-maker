@@ -44,8 +44,8 @@ describe('SignupComponent', () => {
   describe('#proceedSubmitAction', () => {
     it('Should check form success submit action', () => {
       component.form.patchValue({...mockProfile, password: 'mock', tosAgreement: true});
-      const proceedFormSubmitSpy: jasmine.Spy = spyOn<any>(component, 'proceedFormSubmit').and.callThrough();
-      spyOn<any>(component['authService']['apiService'], 'restAuthSignupPost').and.returnValue(of({}));
+      const proceedFormSubmitSpy: jasmine.Spy = spyOn(component, 'proceedFormSubmit').and.callThrough();
+      spyOn(component['authService']['apiService'], 'restAuthSignupPost').and.returnValue(of({}));
       const createUserSpy: jasmine.Spy = spyOn(component['authService'], 'createUser').and.callThrough();
       getElemById(fixture, 'button-signup').click();
       expect(proceedFormSubmitSpy).toHaveBeenCalled();
@@ -54,7 +54,7 @@ describe('SignupComponent', () => {
     });
     it('Should check form error submit action', () => {
       component.form.patchValue({...mockProfile, password: 'mock', tosAgreement: true});
-      const proceedFormSubmitSpy: jasmine.Spy = spyOn<any>(component, 'proceedFormSubmit').and.callThrough();
+      const proceedFormSubmitSpy: jasmine.Spy = spyOn(component, 'proceedFormSubmit').and.callThrough();
       const createUserSpy: jasmine.Spy = spyOn(component['authService'], 'createUser').and.returnValue(throwError(() => new HttpErrorResponse({error: 'mock error'})));
       getElemById(fixture, 'button-signup').click();
       expect(proceedFormSubmitSpy).toHaveBeenCalled();
