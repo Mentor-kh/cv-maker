@@ -6,7 +6,7 @@
             </div>
             <div class="two-columns">
                 <div class="column">
-                    <div class="image-holder"><img [src]="userData.image ? userData.image : 'assets/avatar-svgrepo-com.svg'" alt="avatar"></div>
+                    <div class="image-holder"><img [src]="(userData.image && userData.image !== 'false') ? userData.image : 'assets/avatar-svgrepo-com.svg'" alt="avatar"></div>
                     <div class="contacts">
                         <h2 class="mat-headline-6">Contact Us:</h2>
                         <mat-list class="contacts">
@@ -32,7 +32,7 @@
                                 <div class="icon-holder">
                                     <mat-icon>{{ 'public' }}</mat-icon>
                                 </div>
-                                <a mat-button target="_blank" href="{{ userData.site }}">{{ userData.site }}</a>
+                                <a mat-button target="_blank" href="{{ userData.site }}">External link</a>
                             </mat-list-item>
                         </mat-list>
                     </div>

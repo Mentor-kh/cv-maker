@@ -43,6 +43,7 @@ main {
 .main {
     position: relative;
     overflow-x: hidden;
+    margin: 0 -20px;
     background-image:
       linear-gradient(
         to right, 
@@ -138,10 +139,11 @@ main {
         flex: 1 1 auto;
         align-self: auto;
         width: 50%;
-        padding: 0 20px;
+        padding: 20px;
 
         & + .column {
             order: 0;
+            padding-left: 0;
         }
     }
 }
