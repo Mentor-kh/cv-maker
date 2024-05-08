@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { UserBasic, UserProfile } from 'src/app/swagger-api';
 import { UnsubscribeOnDestroyAbsctractClass } from '../../shared/unsubscribe-on-destroy/unsubscribe-on-destroy.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { mockUserBasic } from './mock-users';
 
 @Component({
   selector: 'app-user-profile',
