@@ -3,14 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignupComponent } from './signup.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DefaultService } from 'src/app/swagger-api';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 import { tokenMock } from 'src/app/app.component.spec';
 import { getElemById } from 'src/app/common/test.helpers.spec';
@@ -22,15 +22,14 @@ describe('SignupComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [
-      RouterTestingModule, 
-      HttpClientTestingModule,
-      BrowserAnimationsModule,
-      MatDialogModule,
-    ],
+    imports: [RouterTestingModule,
+        BrowserAnimationsModule,
+        MatDialogModule],
     providers: [
-      DefaultService,
-    ],
+        DefaultService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
 });
     fixture = TestBed.createComponent(SignupComponent);
     component = fixture.componentInstance;

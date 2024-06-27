@@ -2,10 +2,10 @@ import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angul
 
 import { DashboardComponent } from './dashboard.component';
 import { DefaultService, UserBasic } from 'src/app/swagger-api';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { mockUserBasic } from '../public/user-profile/mock-users';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -13,11 +13,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
-        DashboardComponent,
-        HttpClientTestingModule,
-    ],
-    providers: [DefaultService],
+    imports: [DashboardComponent],
+    providers: [DefaultService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
   }));
 
