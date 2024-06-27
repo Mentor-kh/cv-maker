@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DefaultService } from 'src/app/swagger-api';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { tokenMock } from 'src/app/app.component.spec';
 import { of, throwError } from 'rxjs';
 import { getElemById } from 'src/app/common/test.helpers.spec';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,8 +16,8 @@ describe('LoginComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule, HttpClientTestingModule, BrowserAnimationsModule, MatDialogModule],
-    providers: [DefaultService],
+    imports: [RouterTestingModule, BrowserAnimationsModule, MatDialogModule],
+    providers: [DefaultService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
