@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { apiConfigFactory } from './app.module';
@@ -13,7 +13,7 @@ import { ApiModule, Token } from './swagger-api';
 import { SharedModule } from './common/shared.module';
 import { Subject, Subscription, of, throwError } from 'rxjs';
 import { AppRoutes } from './common/app.routes';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { subjectsComplete } from './common/helpers';
 
 export const tokenMock: Token = {
@@ -28,20 +28,18 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
+    declarations: [AppComponent],
+    imports: [RouterTestingModule,
         BrowserModule,
-        HttpClientTestingModule,
         BrowserAnimationsModule,
         ApiModule.forRoot(apiConfigFactory),
         AuthModule,
         PublicModule,
         HeaderComponent,
         DashboardComponent,
-        SharedModule,
-      ],
-      declarations: [AppComponent]
-    });
+        SharedModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;

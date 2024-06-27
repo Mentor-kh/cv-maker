@@ -3,14 +3,14 @@ import { ComponentFixture, DeferBlockState, TestBed, fakeAsync, tick } from '@an
 import { ProfileComponent } from './profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DefaultService } from 'src/app/swagger-api';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { EventEmitter } from '@angular/core';
 import { getElemById } from 'src/app/common/test.helpers.spec';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { mockProfile } from './profile.mock';
 
 describe('ProfileComponent', () => {
@@ -19,8 +19,8 @@ describe('ProfileComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule, HttpClientTestingModule, BrowserAnimationsModule, MatDialogModule],
-    providers: [DefaultService]
+    imports: [RouterTestingModule, BrowserAnimationsModule, MatDialogModule],
+    providers: [DefaultService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;

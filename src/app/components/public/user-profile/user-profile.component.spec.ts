@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserProfileComponent } from './user-profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DefaultService } from 'src/app/swagger-api';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpErrorResponse } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 import { mockUserBasic } from './mock-users';
 
@@ -14,9 +14,9 @@ describe('UserProfileComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [DefaultService],
-    });
+    imports: [RouterTestingModule],
+    providers: [DefaultService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
