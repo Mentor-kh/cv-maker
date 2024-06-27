@@ -1,0 +1,36 @@
+<div class="react-app">
+  <div class="ad-banner-example">
+    <h3>Advertisements</h3>
+    <p>Simple dynamic component load:</p>
+    <form [formGroup]="select">
+      <select formControlName="componentSelect" (change)="onChange($event)">
+        <option *ngFor="let component of components; index as i" [ngValue]="i">
+          {{ component.type }}
+        </option>
+      </select>
+    </form>
+    <ng-container *ngComponentOutlet="
+      currentComponent.component;
+      inputs: currentComponent.context;
+    " />
+  </div>
+
+    <p>Form value: {{ select.value | json }}</p>
+
+    <h2>Audoi speeck recognision:</h2>
+    <audio controls [src]="audioFileUrl"></audio>
+    <button (click)="callRecognision()" mat-raised-button>Recognise</button>
+    <h2>Create imaxge AI by text description</h2>
+    <form class="form" [formGroup]="form" (submit)="submitForm($event)">
+        <mat-form-field class="full-width">
+          <mat-label>Create image AI by text description</mat-label>
+          <input matInput formControlName="desciption">
+        </mat-form-field>
+        <button mat-raised-button>Do Magic!</button>
+      </form>
+    <mat-spinner *ngIf="!imageUrl && isSpinnerVisible"></mat-spinner>
+    <div *ngIf="imageUrl">
+        <img width="256" [src]="imageUrl" frameborder="0" alt="image">
+    </div>
+    <iframe width="100%" height="600px" src="assets/react-app/build/index.html" frameborder="0"></iframe>
+</div>
