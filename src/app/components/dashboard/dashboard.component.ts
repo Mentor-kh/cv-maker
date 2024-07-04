@@ -12,13 +12,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DataService } from 'src/app/services/data.service';
 import { UserBasic } from 'src/app/swagger-api';
 import { UnsubscribeOnDestroyAbsctractClass } from '../shared/unsubscribe-on-destroy/unsubscribe-on-destroy.component';
+import { mockUserBasic } from '../public/user-profile/mock-users';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
-    standalone: true,
-    imports: [NgFor, MatCardModule, RouterLink, MatIconModule, MatRippleModule, MatProgressSpinnerModule]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  standalone: true,
+  imports: [NgFor, MatCardModule, RouterLink, MatIconModule, MatRippleModule, MatProgressSpinnerModule]
 })
 export class DashboardComponent extends UnsubscribeOnDestroyAbsctractClass {
   public isDataLoaded: boolean = false;
@@ -38,7 +39,8 @@ export class DashboardComponent extends UnsubscribeOnDestroyAbsctractClass {
           this.isDataLoaded = true;
         },
         error: (httpErrorResponse: HttpErrorResponse) => {
-         this.error = httpErrorResponse.error;
+          this.users = [mockUserBasic];
+          this.error = httpErrorResponse.error;
         },
       }),
     );
