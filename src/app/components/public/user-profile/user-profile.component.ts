@@ -37,6 +37,7 @@ export class UserProfileComponent extends UnsubscribeOnDestroyAbsctractClass {
         this.isDataLoaded = true;
       },
       error: (httpErrorResponse: HttpErrorResponse) => {
+        this.userData = mockUserBasic;
         this.error = httpErrorResponse.error;
       },
     });
