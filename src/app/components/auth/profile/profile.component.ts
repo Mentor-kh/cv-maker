@@ -11,9 +11,9 @@ import { AppRoutes } from 'src/app/common/app.routes';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent extends AuthContext implements OnInit {
   public isDataLoaded: boolean = false;
@@ -30,15 +30,15 @@ export class ProfileComponent extends AuthContext implements OnInit {
     site: this.fb.control(''),
     additionals: this.fb.array([]),
   });
-   
+
   public get additionals(): FormArray {
-    return this.form.controls["additionals"] as FormArray;
+    return this.form.controls['additionals'] as FormArray;
   }
 
   public addAdditional(): void {
     const additional: FormGroup = this.fb.group({
       title: ['', Validators.required],
-      info: ['',   Validators.required]
+      info: ['', Validators.required]
     });
     this.additionals.push(additional);
   }
@@ -58,13 +58,13 @@ export class ProfileComponent extends AuthContext implements OnInit {
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {
           this.authService.deleteAccount().subscribe({
-            next: (response: {}) => 
+            next: () =>
               this.authService.logout().subscribe({
                 next: () => this.sessionService.removeSession(),
-                error: (httpErrorResponse: HttpErrorResponse) => 
+                error: (httpErrorResponse: HttpErrorResponse) =>
                   this.formError = httpErrorResponse.error.Error,
               }),
-            error: (httpErrorResponse: HttpErrorResponse) => 
+            error: (httpErrorResponse: HttpErrorResponse) =>
               this.formError = httpErrorResponse.error.Error,
           });
         }
@@ -92,7 +92,7 @@ export class ProfileComponent extends AuthContext implements OnInit {
           this.userData = response;
           this.isDataLoaded = true;
           this.form.patchValue(response);
-  
+
           if (response.additionals?.length) {
             this.restoreAdditionalData(response.additionals);
           }
@@ -116,7 +116,7 @@ export class ProfileComponent extends AuthContext implements OnInit {
   protected proceedFormSubmit(): void {
     this.trackSubscription(
       this.authService.updateUser(this.form.value).subscribe({
-        next: (response: {}) => {
+        next: () => {
           this.router.navigateByUrl(`${AppRoutes.profile}/${this.userData.entityId}`);
           this.formError = '';
         },

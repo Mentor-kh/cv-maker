@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { PublicModule } from './components/public/public.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ScreenSaverComponent } from './components/shared/screensaver/screensaver.component';
 
 export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
@@ -30,6 +31,7 @@ export function apiConfigFactory(): Configuration {
     AuthModule,
     PublicModule,
     HeaderComponent,
+    ScreenSaverComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
