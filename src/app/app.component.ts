@@ -12,7 +12,6 @@ import { UnsubscribeOnDestroyAbsctractClass } from './components/shared/unsubscr
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
-  title = 'client';
   public isAuthentificated: boolean = false;
 
   public constructor(
@@ -47,11 +46,12 @@ export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
             this.isAuthentificated = true;
             if (+token.expires < Date.now()) {
               this.authService.prolong().subscribe({
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 next: (token: Token) => {
                   this.isAuthentificated = true;
                 },
-                error: () => {  
-                  this.authService.logout();  
+                error: () => {
+                  this.authService.logout();
                   this.sessionService.removeSession();
                   this.router.navigateByUrl(AppRoutes.baseUrl);
                 },
@@ -59,7 +59,7 @@ export class AppComponent extends UnsubscribeOnDestroyAbsctractClass {
             }
           } else {
             this.isAuthentificated = false;
-            this.router.navigateByUrl(AppRoutes.baseUrl); 
+            this.router.navigateByUrl(AppRoutes.baseUrl);
           }
         }
       ),
