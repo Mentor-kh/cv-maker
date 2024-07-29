@@ -1,0 +1,11 @@
+<div class="settings-nav">
+    <mat-button-toggle mat-icon-button (click)="SS_Random()" type="button">
+        <mat-icon fontIcon="settings_overscan"></mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle  mat-icon-button (click)="SS_Pointer()">
+        <mat-icon fontIcon="pest_control_rodent"></mat-icon>
+    </mat-button-toggle>    
+</div>
+<mat-button-toggle class="opener" mat-icon-button (click)="isOpen()">
+    <mat-icon fontIcon="{{ SS_Settings.isSS_active ? 'skip_next' : 'skip_previous' }}"></mat-icon>
+</mat-button-toggle>

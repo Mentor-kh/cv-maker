@@ -1,4 +1,3 @@
-<div 
-id="ng-body" 
-#body
-></div>
+<div id="ng-body" [ngClass]="{'active': SS_Settings.isSS_active}" #body>
+    <ss-bar (emitSS_settings)="handleSS_Setting($event)"></ss-bar>
+</div>
